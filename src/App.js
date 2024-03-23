@@ -1,11 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
 
-// Static Components
-import Header from "./components/Header";
-import Nav from "./components/Nav";
-import Footer from "./components/Footer";
-
 //Dynamic Components
 import Home from "./components/Home";
 import NewPost from "./components/NewPost";
@@ -13,7 +8,10 @@ import PostPage from "./components/PostPage";
 import Missing from "./components/Missing";
 import About from "./components/About";
 
-import { Route, useHistory, Switch } from "react-router-dom";
+//React Router Layout
+import Layout from "./components/Layout";
+
+import { Route, useNavigate, Routes } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { format } from "date-fns";
 
@@ -94,7 +92,7 @@ function App() {
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [posts, setPosts] = useState([...postData]);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   //State for adding new Post
   const [category, setCategory] = useState("");
@@ -111,13 +109,13 @@ function App() {
     setPosts(allPost);
     setTitle("");
     setBody("");
-    history.push("/");
+    navigate("/");
   };
 
   const deletePost = (id) => {
     const newPost = posts.filter((post) => post.id !== id);
     setPosts(newPost);
-    history.push("/");
+    navigate("/");
   };
 
   //Handle Selection of Type of Content
@@ -154,40 +152,58 @@ function App() {
   }, [posts, search]);
 
   return (
-    <div className="flex min-h-screen flex-col bg-secondary font-montserrat">
-      <Header />
-      <Nav search={search} setSearch={setSearch} resetFocus={resetFocus} />
+    <div className="flex grow flex-col">
+      <Routes>
+        //* Parent Route
+        <Route
+          path="/"
+          element={
+            <Layout
+              search={search}
+              setSearch={setSearch}
+              resetFocus={resetFocus}
+            />
+          }
+        >
+          //* Home Route
+          <Route
+            index
+            element={
+              <Home
+                posts={searchResult}
+                selectType={selectType}
+                handleFocus={handleFocus}
+                focus={focus}
+              />
+            }
+          ></Route>
+          //* Post Route
+          <Route path="post/">
+            <Route
+              index
+              element={
+                <NewPost
+                  category={category}
+                  setCategory={setCategory}
+                  title={title}
+                  setTitle={setTitle}
+                  body={body}
+                  setBody={setBody}
+                  handleSubmit={handleSubmit}
+                />
+              }
+            />
 
-      <div className="flex grow flex-col">
-        <Switch>
-          <Route exact path="/">
-            <Home
-              posts={searchResult}
-              selectType={selectType}
-              handleFocus={handleFocus}
-              focus={focus}
+            <Route
+              path=":id"
+              element={<PostPage posts={posts} deletePost={deletePost} />}
             />
           </Route>
-          <Route exact path="/post">
-            <NewPost
-              category={category}
-              setCategory={setCategory}
-              title={title}
-              setTitle={setTitle}
-              body={body}
-              setBody={setBody}
-              handleSubmit={handleSubmit}
-            />
-          </Route>
-          <Route path="/post/:id">
-            <PostPage posts={posts} deletePost={deletePost} />
-          </Route>
-          <Route path="/about" component={About} />
-          <Route path="*" component={Missing} />
-        </Switch>
-      </div>
-
-      <Footer />
+          //* About Route
+          <Route path="/about" element={<About />} />
+          <Route path="*" element={<Missing />} />
+        </Route>
+      </Routes>
     </div>
   );
 }
