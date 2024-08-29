@@ -9,8 +9,9 @@ const NewPost = ({
   body,
   setBody,
   handleSubmit,
+  drop,
+  setDrop,
 }) => {
-  const [drop, setDrop] = useState(false);
   const [text, setText] = useState("Post Type");
 
   const selectDrop = (type) => {
@@ -24,8 +25,8 @@ const NewPost = ({
   };
 
   return (
-    <div className="relative  flex grow flex-col justify-center px-5 py-2 md:items-center">
-      <main className=" font-meduim flex  flex-col gap-y-2  rounded-md bg-primary px-6 py-6 text-white md:w-9/12">
+    <div className="flex justify-center">
+      <main className="font-meduim flex  flex-col gap-y-2  rounded-md bg-primary p-5 text-white">
         <div className="text-center">
           <h2 className="  font-koulen text-3xl tracking-wide">Create Post</h2>
           <p className="italic">
@@ -57,22 +58,22 @@ const NewPost = ({
             <div
               className={`absolute mt-1 ${
                 drop === true ? "flex" : "hidden"
-              } w-full flex-col gap-y-px  bg-secondary font-semibold text-white`}
+              } mt-2 w-full flex-col gap-y-1 divide-y divide-gray-500 rounded-md border border-gray-500 bg-primary  font-semibold text-white`}
             >
               <button
-                className="w-full border-b-2 p-3 text-left  hover:bg-accent"
+                className="w-full  p-3 text-left  hover:bg-accent"
                 onClick={() => selectDrop("Thought")}
               >
                 Thought
               </button>
               <button
-                className="w-full border-b-2 p-3 text-left  hover:bg-accent"
+                className="w-full   p-3 text-left  hover:bg-accent"
                 onClick={() => selectDrop("Rant")}
               >
                 Rant
               </button>
               <button
-                className="w-full p-3 text-left  hover:bg-accent"
+                className="w-full  p-3 text-left  hover:bg-accent"
                 onClick={() => selectDrop("Complaint")}
               >
                 Complaint
@@ -99,7 +100,7 @@ const NewPost = ({
             value={body}
             onChange={(e) => setBody(e.target.value)}
           ></textarea>
-          <button className="mt-1 rounded-md bg-secondary p-4 text-center font-semibold ">
+          <button className="rounded-md bg-secondary p-4 text-center font-semibold ">
             Submit
           </button>
         </form>

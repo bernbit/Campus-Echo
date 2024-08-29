@@ -8,11 +8,12 @@ const Post = ({ post }) => {
   const finalTime = dateSplit[1];
 
   return (
-    <div className=" mb-4 rounded-lg border-2 border-secondary bg-primary p-5 text-white">
+    <div className="bg-glass mb-4 rounded-lg border-2 border-secondary p-5 text-primary">
       <p className="font-medium italic">{post.type.toUpperCase()}</p>
       <h2 className="font-koulen text-3xl tracking-wide">{post.title}</h2>
-      <p className="font-semibold">{finalDate}</p>
-      <p className="font-semibold">{finalTime}</p>
+      <p className="font-semibold">
+        {finalDate} - {finalTime}
+      </p>
 
       <p className="mt-3">
         {post.body.length <= 150
@@ -21,7 +22,7 @@ const Post = ({ post }) => {
       </p>
 
       <Link to={`/post/${post.id}`}>
-        <button className="mt-5 rounded-lg bg-secondary p-2.5 font-bold hover:opacity-80">
+        <button className="mt-5 rounded-lg bg-primary p-2.5 font-bold text-white hover:opacity-80">
           Continue Reading
         </button>
       </Link>

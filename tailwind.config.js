@@ -4,9 +4,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#0A4D68",
-        secondary: "#088395",
-        accent: "#05BFDB",
+        primary: "#0F2634",
+        secondary: "#3CD184",
+        accent: "#3E9BD4",
+        extra: "#3482B3",
       },
       backgroundImage: {
         school:

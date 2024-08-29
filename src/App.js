@@ -1,15 +1,16 @@
-import logo from "./logo.svg";
 import "./App.css";
 
-//Dynamic Components
-import Home from "./components/Home";
-import NewPost from "./components/NewPost";
+// Components
 import PostPage from "./components/PostPage";
 import Missing from "./components/Missing";
-import About from "./components/About";
+
+//Pages
+import Home from "./pages/Home";
+import About from "./pages/About";
+import News from "./pages/News";
 
 //React Router Layout
-import Layout from "./components/Layout";
+import Layout from "./components/Layout/Layout";
 
 import { Route, useNavigate, Routes } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -99,7 +100,7 @@ function App() {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e, setShowModal) => {
     e.preventDefault();
     const id = posts.length ? posts[posts.length - 1].id + 1 : 1;
     const date = format(new Date(), "MMMM d, yyyy - h:mm a");
@@ -110,6 +111,7 @@ function App() {
     setTitle("");
     setBody("");
     navigate("/");
+    setShowModal(false);
   };
 
   const deletePost = (id) => {
@@ -174,26 +176,18 @@ function App() {
                 selectType={selectType}
                 handleFocus={handleFocus}
                 focus={focus}
+                category={category}
+                setCategory={setCategory}
+                title={title}
+                setTitle={setTitle}
+                body={body}
+                setBody={setBody}
+                handleSubmit={handleSubmit}
               />
             }
           ></Route>
           //* Post Route
           <Route path="post/">
-            <Route
-              index
-              element={
-                <NewPost
-                  category={category}
-                  setCategory={setCategory}
-                  title={title}
-                  setTitle={setTitle}
-                  body={body}
-                  setBody={setBody}
-                  handleSubmit={handleSubmit}
-                />
-              }
-            />
-
             <Route
               path=":id"
               element={<PostPage posts={posts} deletePost={deletePost} />}
@@ -201,6 +195,7 @@ function App() {
           </Route>
           //* About Route
           <Route path="/about" element={<About />} />
+          <Route path="/news" element={<News />} />
           <Route path="*" element={<Missing />} />
         </Route>
       </Routes>

@@ -2,13 +2,13 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 
 // Static Components
-import Header from "./Header";
-import Nav from "./Nav";
-import Footer from "./Footer";
+import Header from "../Header";
+import Nav from "../Nav";
+import Footer from "../Footer";
 
 const Layout = ({ search, setSearch, resetFocus }) => {
   return (
-    <div className="flex min-h-screen flex-col bg-secondary font-montserrat">
+    <div className="bg-pattern flex min-h-screen flex-col font-montserrat">
       <Header />
       <Nav search={search} setSearch={setSearch} resetFocus={resetFocus} />
       <Outlet />
