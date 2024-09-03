@@ -40,7 +40,7 @@ function Home() {
 
   return (
     <div className="min-h-screen grow  flex-col items-center md:flex">
-      <main className=" mt-10 px-4 py-2 md:w-9/12">
+      <main className="mt-10 px-4 py-2 md:w-9/12">
         <div
           className="bg-glass mb-5 flex items-center justify-between rounded-md p-4 shadow-md hover:opacity-80 md:px-5"
           onClick={() => {

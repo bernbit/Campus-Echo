@@ -25,8 +25,8 @@ const NewPost = ({
   };
 
   return (
-    <div className="flex justify-center">
-      <main className="font-meduim flex  flex-col gap-y-2  rounded-md bg-primary p-5 text-white">
+    <div className="flex h-full w-full justify-center">
+      <main className="font-meduim flex  w-full flex-col  gap-y-2 rounded-md p-5 text-white">
         <div className="text-center">
           <h2 className="  font-koulen text-3xl tracking-wide">Create Post</h2>
           <p className="italic">
@@ -61,19 +61,19 @@ const NewPost = ({
               } mt-2 w-full flex-col gap-y-1 divide-y divide-gray-500 rounded-md border border-gray-500 bg-primary  font-semibold text-white`}
             >
               <button
-                className="w-full  p-3 text-left  hover:bg-accent"
+                className="w-full  p-3 text-left  hover:bg-secondary"
                 onClick={() => selectDrop("Thought")}
               >
                 Thought
               </button>
               <button
-                className="w-full   p-3 text-left  hover:bg-accent"
+                className="w-full   p-3 text-left  hover:bg-secondary"
                 onClick={() => selectDrop("Rant")}
               >
                 Rant
               </button>
               <button
-                className="w-full  p-3 text-left  hover:bg-accent"
+                className="w-full  p-3 text-left  hover:bg-secondary"
                 onClick={() => selectDrop("Complaint")}
               >
                 Complaint
@@ -82,7 +82,7 @@ const NewPost = ({
           </div>
 
           <input
-            className="rounded-md p-3 font-semibold text-black outline-none   focus:border-2 focus:border-accent"
+            className="rounded-md p-3 font-semibold text-black outline-none   focus:border-2 focus:border-secondary"
             type="text"
             placeholder=" Post Title"
             required
@@ -90,7 +90,7 @@ const NewPost = ({
             onChange={(e) => setTitle(e.target.value)}
           />
           <textarea
-            className="rounded-md p-4 font-semibold text-black outline-none focus:border-2 focus:border-accent"
+            className="rounded-md p-4 font-semibold text-black outline-none focus:border-2 focus:border-secondary"
             name=""
             id=""
             cols="30"

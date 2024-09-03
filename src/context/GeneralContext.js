@@ -157,6 +157,8 @@ export function GeneralProvider({ children }) {
     setSearchResult(filterResult.reverse());
   }, [posts, search]);
 
+  console.log(posts);
+
   const value = {
     search,
     setSearch,

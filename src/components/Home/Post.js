@@ -9,13 +9,13 @@ const Post = ({ post }) => {
 
   return (
     <div className="bg-glass mb-4 rounded-lg border-2 border-secondary p-5 text-primary">
-      <p className="font-medium italic">{post.type.toUpperCase()}</p>
+      <p className="text-end font-semibold">{post.type.toUpperCase()}</p>
       <h2 className="font-koulen text-3xl tracking-wide">{post.title}</h2>
       <p className="font-semibold">
         {finalDate} - {finalTime}
       </p>
 
-      <p className="mt-3">
+      <p className="mt-3 font-medium">
         {post.body.length <= 150
           ? post.body
           : `${post.body.slice(0, 150)}.....`}

@@ -11,9 +11,7 @@ const Layout = () => {
     <div className="bg-pattern flex min-h-screen flex-col font-montserrat">
       <Header />
       <Nav />
-      <div>
-        <Outlet />
-      </div>
+      <Outlet />
       <Footer />
     </div>
   );

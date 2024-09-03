@@ -1,7 +1,7 @@
 import "./App.css";
 
 // Components
-import PostPage from "./components/PostPage";
+import PostPage from "./pages/PostPage";
 import Missing from "./components/Missing";
 
 //Pages
