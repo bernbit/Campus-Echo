@@ -3,8 +3,11 @@ import { useParams, Link } from "react-router-dom";
 import LostPage from "./LostPage";
 
 import backIcon from "../img/backB.svg";
+import useGeneral from "../context/GeneralContext";
 
-const PostPage = ({ posts, deletePost }) => {
+const PostPage = () => {
+  const { posts, deletePost } = useGeneral();
+
   const { id } = useParams();
   const post = posts.find((post) => post.id.toString() === id);
 

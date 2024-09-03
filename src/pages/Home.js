@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import useGeneral from "../context/GeneralContext";
 import writeIcon from "../img/write.svg";
 
 import Modal from "../components/Home/Modal";
@@ -6,19 +7,21 @@ import NewPost from "../components/Home/NewPost";
 
 import Options from "../components/Home/Options";
 import Feed from "../components/Home/Feed";
-function Home({
-  posts,
-  selectType,
-  handleFocus,
-  focus,
-  category,
-  setCategory,
-  title,
-  setTitle,
-  body,
-  setBody,
-  handleSubmit,
-}) {
+function Home() {
+  const {
+    posts,
+    selectType,
+    handleFocus,
+    focus,
+    category,
+    setCategory,
+    title,
+    setTitle,
+    body,
+    setBody,
+    handleSubmit,
+  } = useGeneral();
+
   const [showModal, setShowModal] = useState(false);
   const [drop, setDrop] = useState(false);
 

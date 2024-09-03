@@ -1,36 +1,30 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import schoolIcon from "../img/searc-icon.svg";
-import openIcon from "../img/open.svg";
-import closeIcon from "../img/close.svg";
+import { MdHome, MdInfo, MdNewspaper } from "react-icons/md";
 
-function Nav({ search, setSearch, resetFocus }) {
-  const [icon, setIcon] = useState(openIcon);
-  const [show, setShow] = useState("hidden");
-  const navRef = useRef(null);
+import useGeneral from "../context/GeneralContext";
 
-  const toggleIcon = () => {
-    if (icon === openIcon) {
-      setIcon(closeIcon);
-      setShow("");
-    } else {
-      setIcon(openIcon);
-      setShow("hidden");
-    }
-    resetFocus();
-  };
+function Nav() {
+  const {
+    navRef,
+    handleNavClick,
+    search,
+    setSearch,
+    resetFocus,
+    showNav,
+    setShowNav,
+  } = useGeneral();
 
-  const handleLinkClick = () => {
-    toggleIcon();
-    if (navRef.current) {
-      navRef.current.scrollIntoView({ behavior: "smooth" });
-    }
+  const [activeNav, setActiveNav] = useState(0);
+  const handleShowNav = () => {
+    setShowNav(!showNav);
   };
 
   const navOptions = [
-    { path: "/", label: "Home" },
-    { path: "/news", label: "News" },
-    { path: "/about", label: "About" },
+    { path: "/", label: "Home", icon: MdHome },
+    { path: "/news", label: "News", icon: MdNewspaper },
+    { path: "/about", label: "About", icon: MdInfo },
   ];
 
   return (
@@ -51,49 +45,73 @@ function Nav({ search, setSearch, resetFocus }) {
             <img src={schoolIcon} className="mr-2 w-6" />
           </form>
 
-          {/* Nav Button */}
-          <button className="md:hidden">
-            <img src={icon} onClick={toggleIcon} className="w-5" />
-          </button>
+          {/* Hamburger Menu */}
+          {/* <input
+            type="checkbox"
+            id="hamburger"
+            checked={showNav}
+            onChange={handleShowNav}
+          />
+          <label for="hamburger" className="toggle md:hidden ">
+            <div className="bars" id="bar1"></div>
+            <div className="bars" id="bar2"></div>
+            <div className="bars" id="bar3"></div>
+          </label> */}
 
           {/* Larger Screen Nav Option */}
-          <div className="hidden grow items-center justify-end gap-x-8 text-lg font-semibold md:flex">
+          {/* <div className="hidden grow items-center justify-end gap-x-8 text-lg font-semibold md:flex">
             {navOptions.map((navOption, index) => (
               <NavLink
                 key={index}
                 to={navOption.path}
-                onClick={handleLinkClick}
-                className={({ isActive }) =>
-                  `${
-                    isActive ? "text-secondary" : "text-white"
-                  } cursor-pointer hover:rounded-md hover:text-secondary hover:opacity-90`
-                }
+                onClick={() => {
+                  handleNavClick();
+                  setShowNav(false);
+                  setActiveNav(index);
+                  resetFocus();
+                }}
+                className={`cursor-pointer ${
+                  activeNav === index ? "text-white" : "text-secondary"
+                } hover:rounded-md hover:text-white hover:opacity-90`}
               >
                 <p>{navOption.label}</p>
               </NavLink>
             ))}
-          </div>
+          </div> */}
         </div>
 
         {/* Mobile Nav Options */}
-        <div className={`${show} md:hidden`}>
-          <div className="absolute top-full flex h-screen w-full flex-col items-center justify-center gap-y-6 bg-primary p-32 text-center text-xl font-semibold ">
-            {navOptions.map((navOption, index) => (
-              <NavLink
-                key={index}
-                to={navOption.path}
-                onClick={handleLinkClick}
-                className={({ isActive }) =>
-                  `${
-                    isActive ? "text-white" : "text-primary"
-                  } w-full rounded-md bg-secondary p-2`
-                }
-              >
-                <p>{navOption.label}</p>
-              </NavLink>
-            ))}
+        {/* <div className="md:hidden">
+          <div
+            className={`absolute  top-full flex  h-screen w-7/12 flex-col items-center  bg-primary  pt-10  font-semibold transition-all duration-500 ${
+              showNav ? "-left-0" : "-left-full"
+            }`}
+          >
+            <p className="w-full px-3 py-4 text-left text-sm text-secondary">
+              General
+            </p>
+            <div className="flex w-full grow flex-col gap-y-5">
+              {navOptions.map((navOption, index) => (
+                <NavLink
+                  key={index}
+                  to={navOption.path}
+                  onClick={() => {
+                    handleNavClick();
+                    setShowNav(false);
+                    setActiveNav(index);
+                    resetFocus();
+                  }}
+                  className={`flex w-full items-center  gap-3 px-3 py-2   text-white hover:bg-secondary  ${
+                    activeNav === index ? "bg-secondary" : ""
+                  }`}
+                >
+                  <navOption.icon className="text-2xl" />
+                  <p className="text-lg font-medium">{navOption.label}</p>
+                </NavLink>
+              ))}
+            </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </nav>
   );

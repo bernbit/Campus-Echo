@@ -6,12 +6,14 @@ import Header from "../Header";
 import Nav from "../Nav";
 import Footer from "../Footer";
 
-const Layout = ({ search, setSearch, resetFocus }) => {
+const Layout = () => {
   return (
     <div className="bg-pattern flex min-h-screen flex-col font-montserrat">
       <Header />
-      <Nav search={search} setSearch={setSearch} resetFocus={resetFocus} />
-      <Outlet />
+      <Nav />
+      <div>
+        <Outlet />
+      </div>
       <Footer />
     </div>
   );

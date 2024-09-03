@@ -4,23 +4,29 @@ import pageNotFound from "../img/pageNotFound.svg";
 
 const Missing = () => {
   return (
-    <div className="grow flex-col items-center justify-start  px-4 py-2 md:flex">
-      <main className=" flex grow flex-col justify-center gap-y-6 rounded-md  bg-primary px-6  py-6 text-white md:w-9/12 md:py-4">
-        <div className="text-center md:px-20">
-          <img src={pageNotFound} className=" m-auto max-w-xs " />
-          <h2 className="font-koulen text-4xl tracking-wide">Page Not Found</h2>
-          <p className="mt-2 break-words ">
+    <main className="bg-pattern flex h-screen grow flex-col items-center justify-center text-white md:flex-col">
+      <div className="flex flex-col items-center justify-center gap-3 rounded-md bg-primary p-10">
+        <div className="border-test flex items-center justify-center text-center">
+          <img src={pageNotFound} className="w-[90%]" />
+        </div>
+
+        <div className="border-test flex  flex-col items-center gap-y-2 px-20">
+          <h2 className="border-test font-koulen text-4xl tracking-wide">
+            Page Not Found
+          </h2>
+          <p className="border-test break-words">
             Oops! The page you're looking for seems to have gone on a vacation.
             Please check the URL or head back to the homepage.
           </p>
-        </div>
-        <Link to="/" className="md:px-20">
-          <div className="m-auto w-full rounded-md bg-secondary p-4 text-center font-semibold ">
+          <Link
+            to="/"
+            className="border-test w-full rounded-md bg-secondary p-4 text-center font-semibold"
+          >
             Go Back Home
-          </div>
-        </Link>
-      </main>
-    </div>
+          </Link>
+        </div>
+      </div>
+    </main>
   );
 };
 
