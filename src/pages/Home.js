@@ -53,12 +53,12 @@ function Home() {
     <div className="min-h-screen grow  flex-col items-center md:flex">
       <main className="mt-10 px-4 py-2 md:w-9/12">
         <div
-          className="bg-glass mb-5 flex items-center justify-between rounded-md p-4 shadow-md hover:opacity-80 md:px-5"
+          className="mb-5 flex items-center justify-between rounded-md bg-primary p-4 shadow-md hover:opacity-80 md:px-5"
           onClick={() => {
             setShowModal(true);
           }}
         >
-          <p className="font-medium text-primary"> Write a post</p>
+          <p className="font-medium text-white"> Write a post</p>
           <img src={writeIcon} className=" w-5" />
         </div>
 
@@ -72,7 +72,7 @@ function Home() {
         {searchResult.length ? (
           <Feed posts={searchResult} />
         ) : (
-          <div className="bg-glass mb-4 rounded-lg border-2 border-secondary p-5 text-primary">
+          <div className="mb-4 rounded-lg border-2 border-secondary bg-primary p-5 text-white">
             <p className="font-semibold"> No Post Available</p>
           </div>
         )}

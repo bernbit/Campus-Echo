@@ -4,7 +4,7 @@ function Footer() {
   const date = new Date();
   return (
     <footer className="text-center tracking-wide text-white">
-      <div className="flex flex-col  items-center justify-center bg-[#273c48] p-3">
+      <div className="flex flex-col  items-center justify-center bg-extra p-3">
         <img src={`/logo.svg`} alt="Campus Echo Logo" className="w-[50px]" />
         <div>
           <p className="font-koulen text-2xl tracking-widest">CAMPUS ECHO</p>

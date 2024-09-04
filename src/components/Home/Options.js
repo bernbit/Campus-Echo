@@ -8,7 +8,9 @@ function Options({ handleFocus, focus }) {
       {categories.map((category, index) => (
         <button
           className={`rounded-lg p-2.5 font-semibold shadow-sm outline-none hover:cursor-pointer hover:opacity-80 ${
-            focus === category ? "bg-primary" : "bg-glass text-primary"
+            focus === category
+              ? "bg-extra opacity-90"
+              : "bg-primary text-white "
           }`}
           onClick={() => handleFocus(category)}
           key={index}

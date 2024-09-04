@@ -5,9 +5,9 @@ module.exports = {
     extend: {
       colors: {
         primary: "#0F2634",
-        secondary: "#3CD184",
+        secondary: "#15F5BA",
         accent: "#3E9BD4",
-        extra: "#3482B3",
+        extra: "#3f515d",
       },
       backgroundImage: {
         school:

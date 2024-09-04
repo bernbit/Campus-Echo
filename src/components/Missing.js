@@ -4,8 +4,8 @@ import pageNotFound from "../img/pageNotFound.svg";
 
 const Missing = () => {
   return (
-    <main className="bg-pattern fixed inset-0 z-30  flex h-screen grow flex-col items-center justify-center px-5 text-primary md:flex-col md:px-16">
-      <div className="bg-glass  flex flex-col items-center justify-center gap-3 rounded-md p-10 md:flex-row">
+    <main className="bg-pattern fixed inset-0 z-30  flex h-screen grow flex-col items-center justify-center px-5 text-white md:flex-col md:px-16">
+      <div className="flex  flex-col items-center justify-center gap-3 rounded-md bg-primary p-10 md:flex-row">
         <div className=" flex basis-6/12 items-center justify-center text-center">
           <img src={pageNotFound} className="" />
         </div>
@@ -20,7 +20,7 @@ const Missing = () => {
           </p>
           <Link
             to="/"
-            className=" w-full rounded-md bg-primary p-4 text-center font-semibold text-secondary"
+            className=" w-full rounded-md bg-secondary p-4 text-center font-semibold text-primary"
           >
             Go Back Home
           </Link>

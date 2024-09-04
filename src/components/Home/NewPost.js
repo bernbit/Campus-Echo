@@ -57,19 +57,19 @@ const NewPost = ({
               } mt-2 w-full flex-col gap-y-1 divide-y divide-gray-500 rounded-md border border-gray-500 bg-primary  font-semibold text-white`}
             >
               <button
-                className="w-full  p-3 text-left  hover:bg-secondary"
+                className="w-full  p-3 text-left  hover:bg-secondary hover:text-primary"
                 onClick={() => selectDrop("Thought")}
               >
                 Thought
               </button>
               <button
-                className="w-full   p-3 text-left  hover:bg-secondary"
+                className="w-full   p-3 text-left  hover:bg-secondary hover:text-primary"
                 onClick={() => selectDrop("Rant")}
               >
                 Rant
               </button>
               <button
-                className="w-full  p-3 text-left  hover:bg-secondary"
+                className="w-full  p-3 text-left  hover:bg-secondary hover:text-primary"
                 onClick={() => selectDrop("Complaint")}
               >
                 Complaint
@@ -96,7 +96,7 @@ const NewPost = ({
             value={body}
             onChange={(e) => setBody(e.target.value)}
           ></textarea>
-          <button className="rounded-md bg-secondary p-4 text-center font-semibold ">
+          <button className="rounded-md bg-secondary p-4 text-center font-semibold text-primary ">
             Submit
           </button>
         </form>

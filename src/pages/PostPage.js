@@ -15,7 +15,7 @@ const PostPage = () => {
   return (
     <div className="my-10 grow flex-col items-center  justify-start px-4 py-2 md:flex">
       {post && (
-        <main className="bg-glass flex grow flex-col justify-center gap-y-6  rounded-md px-6  py-10 text-primary md:w-9/12">
+        <main className="flex grow flex-col justify-center gap-y-6 rounded-md  bg-primary px-6  py-10 text-white md:w-9/12">
           <div className="flex items-center justify-between">
             <Link
               to="/"
@@ -42,7 +42,7 @@ const PostPage = () => {
             <p className="mt-4 text-justify font-medium">{post.body}</p>
           </div>
           <button
-            className="rounded-md bg-primary p-4 font-semibold text-white hover:cursor-pointer hover:opacity-75 md:w-1/4"
+            className="rounded-md bg-secondary p-4 font-semibold text-primary hover:cursor-pointer hover:opacity-75 md:w-1/4"
             onClick={() => deletePost(post.id)}
           >
             Delete Post

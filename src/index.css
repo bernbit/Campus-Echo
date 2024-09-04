@@ -16,16 +16,8 @@ body {
 .bg-pattern {
   background-color: #e5e5f7;
   /* opacity: 0.95; */
-  background-image: radial-gradient(#0f2634 1.5px, #3cd184 1.5px);
+  background-image: radial-gradient(#0f2634 1.5px, #15f5ba 1.5px);
   background-size: 25px 25px;
-}
-
-.bg-glass {
-  background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  border-radius: 10px;
 }
 
 /* From Uiverse.io by vinodjangid07 */
