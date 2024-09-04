@@ -20,10 +20,21 @@ function Home() {
     body,
     setBody,
     handleSubmit,
+    searchResult,
+    text,
+    setText,
+    resetFocus,
   } = useGeneral();
 
   const [showModal, setShowModal] = useState(false);
   const [drop, setDrop] = useState(false);
+
+  const handleSubmitWithReset = (e) => {
+    handleSubmit(e);
+    setText("Post Type");
+    setShowModal(false);
+    setDrop(false);
+  };
 
   useEffect(() => {
     if (showModal) {
@@ -58,10 +69,10 @@ function Home() {
           focus={focus}
         />
 
-        {posts.length ? (
-          <Feed posts={posts} />
+        {searchResult.length ? (
+          <Feed posts={searchResult} />
         ) : (
-          <div className=" mb-4 rounded-lg border-2 border-secondary bg-primary p-5 text-white">
+          <div className="bg-glass mb-4 rounded-lg border-2 border-secondary p-5 text-primary">
             <p className="font-semibold"> No Post Available</p>
           </div>
         )}
@@ -73,6 +84,10 @@ function Home() {
           closeModal={() => {
             setShowModal(false);
             setDrop(false);
+            setTitle("");
+            setBody("");
+            setText("Post Type");
+            resetFocus();
           }}
         >
           <NewPost
@@ -85,6 +100,8 @@ function Home() {
             handleSubmit={(e) => handleSubmit(e, setShowModal)}
             drop={drop}
             setDrop={setDrop}
+            text={text}
+            setText={setText}
           />
         </Modal>
       </div>

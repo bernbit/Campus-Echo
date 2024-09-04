@@ -46,7 +46,7 @@ function Nav() {
           </form>
 
           {/* Hamburger Menu */}
-          <input
+          {/* <input
             type="checkbox"
             id="hamburger"
             checked={showNav}
@@ -56,7 +56,7 @@ function Nav() {
             <div className="bars" id="bar1"></div>
             <div className="bars" id="bar2"></div>
             <div className="bars" id="bar3"></div>
-          </label>
+          </label> */}
 
           {/* Larger Screen Nav Option */}
           {/* <div className="hidden grow items-center justify-end gap-x-8 text-lg font-semibold md:flex">
@@ -81,7 +81,7 @@ function Nav() {
         </div>
 
         {/* Mobile Nav Options */}
-        <div className="md:hidden">
+        {/* <div className="md:hidden">
           <div
             className={`absolute  top-full flex  h-screen w-7/12 flex-col items-center  bg-primary  pt-10  font-semibold transition-all duration-500 ${
               showNav ? "-left-0" : "-left-full"
@@ -111,7 +111,7 @@ function Nav() {
               ))}
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </nav>
   );

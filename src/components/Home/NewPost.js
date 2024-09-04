@@ -11,15 +11,11 @@ const NewPost = ({
   handleSubmit,
   drop,
   setDrop,
+  text,
+  setText,
 }) => {
-  const [text, setText] = useState("Post Type");
-
   const selectDrop = (type) => {
-    if (drop === false) {
-      setDrop(true);
-    } else {
-      setDrop(false);
-    }
+    setDrop(!drop);
     setText(type);
     setCategory(type);
   };

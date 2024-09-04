@@ -18,10 +18,10 @@ function Modal({ children, closeModal, title }) {
           </div>
           <button
             type="button"
-            className="inline-flex items-center justify-center rounded-md   text-2xl text-gray-400 hover:bg-gray-700 focus:outline-none"
+            className="inline-flex items-center justify-center rounded-md text-2xl text-white  focus:outline-none"
             onClick={closeModal}
           >
-            <MdClose className="text-white" />
+            <MdClose className="hover:cursor-pointer hover:opacity-75" />
 
             <span className="sr-only">Close menu</span>
           </button>

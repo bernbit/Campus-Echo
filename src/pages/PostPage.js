@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
-import LostPage from "../components/LostPage";
+import Missing from "../components/Missing";
 
 import backIcon from "../img/backB.svg";
 import quoteIcon from "../img/quote.svg";
@@ -11,11 +11,6 @@ const PostPage = () => {
 
   const { id } = useParams();
   const post = posts.find((post) => post.id.toString() === id);
-
-  //Split Date and Time
-  const dateSplit = post ? post.date.split(" - ") : "";
-  const finalDate = dateSplit[0];
-  const finalTime = dateSplit[1];
 
   return (
     <div className="my-10 grow flex-col items-center  justify-start px-4 py-2 md:flex">
@@ -42,9 +37,7 @@ const PostPage = () => {
             <h2 className="mt-1 font-koulen text-3xl tracking-wide">
               {post.title}
             </h2>
-            <p className="font-semibold">
-              {finalDate} - {finalTime}
-            </p>
+            <p className="font-semibold">{post.date}</p>
             <p className="font-semibold"></p>
             <p className="mt-4 text-justify font-medium">{post.body}</p>
           </div>
@@ -55,9 +48,8 @@ const PostPage = () => {
             Delete Post
           </button>
         </main>
-        // <></>
       )}
-      {!post && <LostPage />}
+      {!post && <Missing />}
     </div>
   );
 };
