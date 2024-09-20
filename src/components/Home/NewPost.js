@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React } from "react";
 import { FaChevronUp, FaChevronDown } from "react-icons/fa";
 
 const NewPost = ({

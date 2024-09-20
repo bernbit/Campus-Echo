@@ -10,9 +10,19 @@ import {
   addPostData,
   deletePostData,
 } from "../firebase/firestore";
+import {
+  signup,
+  login,
+  getAuthState,
+  logout,
+  resetPassword,
+} from "../firebase/auth";
+
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import shortUUID from "short-uuid";
+
+import Preloader from "../pages/Preloader";
 
 //* Create a Context
 const GeneralContext = createContext();
@@ -21,9 +31,22 @@ const GeneralContext = createContext();
 export function GeneralProvider({ children }) {
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
+  const [myPostSearch, setMyPostSearch] = useState("");
+  const [myPostSearchResult, setMyPostSearchResult] = useState([]);
   const [postData, setPostData] = useState([]);
   const [posts, setPosts] = useState([]);
+  const [myPosts, setMyPosts] = useState([]);
   const navigate = useNavigate();
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Authentication
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    localStorage.getItem("isAuthenticated") === "true",
+  );
+  const [currentUser, setCurrentUser] = useState(
+    localStorage.getItem("currentUser"),
+  );
 
   //State for adding new Post
   const [category, setCategory] = useState("");
@@ -31,34 +54,50 @@ export function GeneralProvider({ children }) {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
+  const [postType, setPostType] = useState("all");
+
   const deletePost = (id) => {
     // const newPost = posts.filter((post) => post.id !== id);
     // setPosts(newPost);
     deletePostData(id);
-    navigate("/");
   };
 
-  //Handle Selection of Type of Content
-  const selectType = (option) => {
-    if (option === "all") {
-      setPosts(postData);
+  const handlePostType = (type, state = "posts") => {
+    if (!currentUser) {
+      return;
+    }
+
+    setPostType(type);
+    if (type === "all") {
+      state === "posts"
+        ? setPosts(postData)
+        : setMyPosts(
+            postData.filter(
+              (post) => post.userId === JSON.parse(currentUser).user.uid,
+            ),
+          );
     } else {
-      const typeSelected = postData.filter(
-        (post) => post.type.toLowerCase() === option,
+      const filteredPosts = postData.filter(
+        (post) => post.type.toLowerCase() === type.toLowerCase(),
       );
-      setPosts(typeSelected);
+      state === "posts"
+        ? setPosts(filteredPosts)
+        : setMyPosts(
+            filteredPosts.filter(
+              (post) => post.userId === JSON.parse(currentUser).user.uid,
+            ),
+          );
     }
   };
 
-  // Handle Focus or Highlight
-  const [focus, setFocus] = useState("all");
-  const handleFocus = (click) => {
-    setFocus(click);
-    selectType(click);
-  };
-  const resetFocus = () => {
-    setFocus("all");
+  const resetPostType = () => {
+    setPostType("all");
     setPosts(postData);
+    setMyPosts(
+      postData.filter(
+        (post) => post.userId === JSON.parse(currentUser).user.uid,
+      ),
+    );
   };
 
   const [showNav, setShowNav] = useState(false);
@@ -72,12 +111,19 @@ export function GeneralProvider({ children }) {
   const handleSubmit = (e, setShowModal) => {
     e.preventDefault();
     const date = Date.now();
+    const user = currentUser ? JSON.parse(currentUser).user : null;
+    if (!user) {
+      console.error("User is not logged in.");
+      return;
+    }
+
     const newPost = {
       id: shortUUID.generate(),
       type: category,
       title,
       date,
       body,
+      userId: user.uid,
     };
     addPostData(newPost.id, newPost);
     setTitle("");
@@ -85,7 +131,7 @@ export function GeneralProvider({ children }) {
     setCategory("");
     setText("Post Type");
     navigate("/");
-    resetFocus();
+
     setShowModal(false);
   };
 
@@ -106,11 +152,25 @@ export function GeneralProvider({ children }) {
 
       setPostData(formatedDatePost);
       setPosts(formatedDatePost);
+
+      if (!currentUser) {
+        console.log("No Active User");
+        return;
+      }
+
+      const parseUser = JSON.parse(currentUser);
+      if (parseUser) {
+        const userPost = formatedDatePost.filter((post) => {
+          return post.userId === parseUser.user.uid;
+        });
+
+        setMyPosts(userPost.reverse());
+      }
     });
 
     // Clean up the listener when the component unmounts
     return () => unsubscribe;
-  }, []);
+  }, [currentUser]);
 
   // * useEffect to Filter Post by Search Result
   useEffect(() => {
@@ -124,6 +184,38 @@ export function GeneralProvider({ children }) {
 
     setSearchResult(filterResult.reverse());
   }, [posts, search]);
+
+  // * useEffect to Filter Post by Search Result in My Posts
+  useEffect(() => {
+    const filterResult = myPosts.filter(
+      (post) =>
+        post.type.toLowerCase().includes(myPostSearch.toLowerCase()) ||
+        post.title.toLowerCase().includes(myPostSearch.toLowerCase()) ||
+        post.date.toLowerCase().includes(myPostSearch.toLowerCase()) ||
+        post.body.toLowerCase().includes(myPostSearch.toLowerCase()),
+    );
+
+    setMyPostSearchResult(filterResult.reverse());
+  }, [myPosts, myPostSearch]);
+
+  //* useEffect to update isAuthenticated in local storage
+  useEffect(() => {
+    localStorage.setItem("isAuthenticated", isAuthenticated);
+  }, [isAuthenticated]);
+
+  //* useEffect to update currentUser in local storage
+  useEffect(() => {
+    localStorage.setItem("currentUser", currentUser);
+  }, [currentUser]);
+
+  //* useEffect for PreLoader
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const value = {
     search,
@@ -139,22 +231,42 @@ export function GeneralProvider({ children }) {
     setTitle,
     body,
     setBody,
-    handleFocus,
-    focus,
-    resetFocus,
-    selectType,
-
     navRef,
     handleNavClick,
     showNav,
     setShowNav,
     text,
     setText,
-    resetFocus,
+
+    //Authentication
+    signup,
+    login,
+    getAuthState,
+    logout,
+    resetPassword,
+    currentUser,
+    setCurrentUser,
+    isAuthenticated,
+    setIsAuthenticated,
+
+    myPosts,
+    setMyPosts,
+    handlePostType,
+    postType,
+    setPostType,
+    resetPostType,
+
+    myPostSearch,
+    setMyPostSearch,
+    myPostSearchResult,
+    setMyPostSearchResult,
+    setIsLoading,
   };
 
   return (
-    <GeneralContext.Provider value={value}>{children}</GeneralContext.Provider>
+    <GeneralContext.Provider value={value}>
+      {isLoading ? <Preloader /> : children}
+    </GeneralContext.Provider>
   );
 }
 

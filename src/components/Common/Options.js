@@ -1,6 +1,8 @@
 import { React, useState } from "react";
+import useGeneral from "../../context/GeneralContext";
 
-function Options({ handleFocus, focus }) {
+function Options({ post }) {
+  const { handlePostType, postType } = useGeneral();
   const categories = ["all", "thought", "rant", "complaint"];
 
   return (
@@ -8,11 +10,11 @@ function Options({ handleFocus, focus }) {
       {categories.map((category, index) => (
         <button
           className={`rounded-lg p-2.5 font-semibold shadow-sm outline-none hover:cursor-pointer hover:opacity-80 ${
-            focus === category
+            postType === category
               ? "bg-extra opacity-90"
               : "bg-primary text-white "
           }`}
-          onClick={() => handleFocus(category)}
+          onClick={() => handlePostType(category, post)}
           key={index}
         >
           {category.charAt(0).toUpperCase() + category.slice(1)}

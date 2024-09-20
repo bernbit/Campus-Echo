@@ -1,28 +1,56 @@
 import "./App.css";
-
 // Components
-import PostPage from "./pages/PostPage";
 import Missing from "./components/Missing";
-
 //Pages
 import Home from "./pages/Home";
+import Posted from "./pages/Posted";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import ResetPassword from "./pages/ResetPassword";
 
+//Route
+import PrivateRoute from "./routes/PrivateRoute";
 //React Router Layout
 import Layout from "./components/Layout/Layout";
-
-import { Route, Routes } from "react-router-dom";
+import useGeneral from "./context/GeneralContext";
+//Reac Router
+import { Route, Routes, Navigate } from "react-router-dom";
 
 function App() {
+  const { isAuthenticated } = useGeneral();
+
   return (
     <div className="flex grow flex-col">
       <Routes>
-        //* Parent Route
-        <Route path="/" element={<Layout />}>
-          //* Home Route
+        <Route
+          path="/"
+          element={
+            <PrivateRoute>
+              <Layout />
+            </PrivateRoute>
+          }
+        >
           <Route index element={<Home />}></Route>
-          //* Post Route
-          <Route path=":id" element={<PostPage />} />
+          <Route path="/posted" element={<Posted />}></Route>
+          {/* <Route path=":id" element={<PostPage />} /> */}
         </Route>
+
+        {/* Login Page */}
+        <Route
+          path="/login"
+          element={!isAuthenticated ? <Login /> : <Navigate to="/" />}
+        ></Route>
+
+        <Route
+          path="/signup"
+          element={!isAuthenticated ? <Signup /> : <Navigate to="/" />}
+        ></Route>
+
+        <Route
+          path="/resetpassword"
+          element={!isAuthenticated ? <ResetPassword /> : <Navigate to="/" />}
+        ></Route>
+
         <Route path="*" element={<Missing />} />
       </Routes>
     </div>

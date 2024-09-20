@@ -2,17 +2,13 @@ import React, { useState, useEffect } from "react";
 import useGeneral from "../context/GeneralContext";
 import writeIcon from "../img/write.svg";
 
-import Modal from "../components/Home/Modal";
+import Modal from "../components/Common/Modal";
 import NewPost from "../components/Home/NewPost";
 
-import Options from "../components/Home/Options";
-import Feed from "../components/Home/Feed";
+import Options from "../components/Common/Options";
+import Post from "../components/Common/Post";
 function Home() {
   const {
-    posts,
-    selectType,
-    handleFocus,
-    focus,
     category,
     setCategory,
     title,
@@ -24,6 +20,7 @@ function Home() {
     text,
     setText,
     resetFocus,
+    resetPostType,
   } = useGeneral();
 
   const [showModal, setShowModal] = useState(false);
@@ -62,15 +59,10 @@ function Home() {
           <img src={writeIcon} className=" w-5" />
         </div>
 
-        <Options
-          posts={posts}
-          selectType={selectType}
-          handleFocus={handleFocus}
-          focus={focus}
-        />
+        <Options />
 
         {searchResult.length ? (
-          <Feed posts={searchResult} />
+          <Post posts={searchResult} />
         ) : (
           <div className="mb-4 rounded-lg border-2 border-secondary bg-primary p-5 text-white">
             <p className="font-semibold"> No Post Available</p>
@@ -78,6 +70,7 @@ function Home() {
         )}
       </main>
 
+      {/* Write a post modal */}
       <div className={`${showModal ? "" : "hidden"}`}>
         <Modal
           title={"Add Post"}
@@ -87,7 +80,7 @@ function Home() {
             setTitle("");
             setBody("");
             setText("Post Type");
-            resetFocus();
+            resetPostType();
           }}
         >
           <NewPost

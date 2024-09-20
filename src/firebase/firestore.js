@@ -3,25 +3,11 @@ import { firestore } from "./firebase";
 import {
   setDoc,
   doc,
-  getDoc,
   getDocs,
   collection,
   onSnapshot,
-  updateDoc,
   deleteDoc,
-  arrayUnion,
 } from "firebase/firestore";
-
-// export async function getUserData(uid) {
-//   const postRef = doc(firestore, "users", uid);
-//   const userSnap = await getDoc(postRef);
-
-//   if (userSnap.exists()) {
-//     return userSnap.data();
-//   } else {
-//     console.log("No such user data!");
-//   }
-// }
 
 export async function getAllPostData(setUserData) {
   try {

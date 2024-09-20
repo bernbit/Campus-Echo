@@ -8,6 +8,7 @@ module.exports = {
         secondary: "#15F5BA",
         accent: "#3E9BD4",
         extra: "#3f515d",
+        colorText: "#FFFFFF",
       },
       backgroundImage: {
         school:

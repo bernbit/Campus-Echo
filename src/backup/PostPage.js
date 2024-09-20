@@ -21,7 +21,7 @@ const PostPage = () => {
               to="/"
               className="flex w-fit gap-x-3 hover:cursor-pointer hover:opacity-75"
             >
-              <img src={backIcon} className="w-5" />
+              <img src={backIcon} alt="Back Icon" className="w-5" />
               <p className="font-medium">Return</p>
             </Link>
 

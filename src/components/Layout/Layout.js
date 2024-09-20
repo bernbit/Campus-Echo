@@ -8,11 +8,13 @@ import Footer from "../Footer";
 
 const Layout = () => {
   return (
-    <div className="bg-pattern flex min-h-screen flex-col font-montserrat">
-      <Header />
-      <Nav />
-      <Outlet />
-      <Footer />
+    <div className="relative flex h-fit min-h-screen flex-col overflow-y-auto bg-secondary font-montserrat">
+      <div className=" absolute bg-primary bg-opacity-20">
+        <Header />
+        <Nav />
+        <Outlet />
+        <Footer />
+      </div>
     </div>
   );
 };
