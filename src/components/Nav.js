@@ -27,6 +27,7 @@ function Nav() {
     resetPostType,
     currentUser,
     resetPassword,
+    setMyPostSearch,
   } = useGeneral();
   const [showDesktopSetting, setShowDesktopSetting] = useState(false);
   const [showMobileSetting, setShowMobileSetting] = useState(false);
@@ -209,6 +210,7 @@ function Nav() {
                   setActiveNav(index);
                   resetPostType();
                   setShowMobileSetting(false);
+                  setMyPostSearch("");
                 }}
                 className={`cursor-pointer ${
                   activeNav === index && !showMobileSetting
@@ -286,6 +288,7 @@ function Nav() {
                     setShowNav(false);
                     setActiveNav(index);
                     resetPostType();
+                    setMyPostSearch("");
                   }}
                   className={`flex w-full items-center gap-3  px-3 py-2 hover:bg-secondary hover:text-primary  ${
                     activeNav === index && !showMobileSetting
